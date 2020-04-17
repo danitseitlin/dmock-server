@@ -3,7 +3,7 @@ import { createServer, Server } from 'http';
 
 export class MockServer {
     private handler: express.Express = express();
-    private server: Server;
+    private server: Server | any;
     private hostname: string = 'localhost';
     private port: number = 3000;
     private routes: Route[];
@@ -15,7 +15,7 @@ export class MockServer {
     constructor(parameters: MockServerParameters) {
         if(parameters.hostname !== undefined) this.hostname = parameters.hostname;
         if(parameters.port !== undefined) this.port = parameters.port;
-        if(parameters.routes !== undefined) this.routes = parameters.routes;
+        this.routes = parameters.routes;
     }
 
     /**

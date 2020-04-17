@@ -2,9 +2,9 @@
   "name": "mock-server",
   "version": "0.0.1",
   "description": "A typescript based mock server NPM module",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "start": "ts-node mocker.ts"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "Dani Tseitlin",
