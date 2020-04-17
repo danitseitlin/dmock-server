@@ -5,6 +5,7 @@ A typescript based mock server NPM module
 import { MockServer } from 'dmock-server';
 
 //Initializing the mock server variable
+```
 const server = new MockServer({
     routes: [{
        path: '/x',
@@ -17,6 +18,6 @@ const server = new MockServer({
 
 //Starting the mock server
 server.start();
-
+```
 You're all set.
 
