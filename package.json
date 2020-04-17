@@ -1,5 +1,5 @@
 {
-  "name": "mock-server",
+  "name": "dmock-server",
   "version": "0.0.1",
   "description": "A typescript based mock server NPM module",
   "main": "lib/index.js",
