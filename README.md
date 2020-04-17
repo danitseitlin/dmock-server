@@ -5,7 +5,7 @@ A typescript based mock server NPM module
 ```
 import { MockServer } from 'dmock-server';
 
-//Initializing the mock server variable
+//Initializing the mock server
 const server = new MockServer({
     routes: [{
        path: '/x',
