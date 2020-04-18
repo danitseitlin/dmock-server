@@ -12,7 +12,6 @@
     "strict": true,
   },
   "exclude": [
-    "build",
     "node_modules",
     "src/**/*.spec.ts"
   ],
