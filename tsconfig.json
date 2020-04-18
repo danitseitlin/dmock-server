@@ -7,6 +7,6 @@
     "strict": true,
     "moduleResolution": "node"
   },
-  "include": ["lib", "src"],
-  "exclude": ["node_modules", "tests", "**/__tests__/*"]
+  "include": ["lib"],
+  "exclude": ["node_modules", "tests", "**/__tests__/*", "src"]
 }
