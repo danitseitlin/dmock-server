@@ -3,10 +3,10 @@
     "target": "es6",
     "module": "commonjs",
     "declaration": true,
-    "outDir": "./build",
+    "outDir": "./lib",
     "strict": true,
     "moduleResolution": "node"
   },
-  "include": ["build", "src"],
+  "include": ["lib", "src"],
   "exclude": ["node_modules", "tests", "**/__tests__/*"]
 }
