@@ -4,9 +4,8 @@
     "module": "commonjs",
     "declaration": true,
     "outDir": "./lib",
+    "rootDir": "src",
     "strict": true,
     "moduleResolution": "node"
-  },
-  "include": ["lib"],
-  "exclude": ["node_modules", "tests", "**/__tests__/*", "src"]
+  }
 }
