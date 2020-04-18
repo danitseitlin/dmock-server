@@ -8,16 +8,14 @@
       "lib": ["es6", "es2015"],
       "types": ["node"],
       "declaration": true,
-      "outDir": "lib",
-      "rootDir": "src",
-      "strict": true,
+      "outDir": "build",
+      "baseUrl": "src",
+      "strict": true
     },
     "exclude": [
-      "src",
+      // "src",
       "node_modules",
-      "src/**/*.spec.ts"
+      "build"
+      // "src/**/*.spec.ts"
     ],
-    "include": [
-      "lib"
-    ]
   }
