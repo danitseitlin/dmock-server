@@ -8,12 +8,12 @@
     "lib": ["es6", "es2015"],
     "types": ["node"],
     "declaration": true,
-    "outDir": "lib",
+    "outDir": "build",
     "rootDir": "src",
     "strict": true,
   },
   "exclude": [
-    "lib",
+    "build",
     "node_modules",
     "src/**/*.spec.ts"
   ],
