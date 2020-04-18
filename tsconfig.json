@@ -13,11 +13,11 @@
       "strict": true,
     },
     "exclude": [
-      "lib",
+      "src",
       "node_modules",
       "src/**/*.spec.ts"
     ],
     "include": [
-      "src"
+      "lib"
     ]
   }
