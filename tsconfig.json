@@ -8,5 +8,5 @@
         "strict": true,
         "moduleResolution": "node"    
     },
-    "exclude": ["src"]
+    "exclude": ["lib", "node_modules"]
 }
