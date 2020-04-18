@@ -9,7 +9,6 @@
     "types": ["node"],
     "declaration": true,
     "outDir": "build",
-    "rootDir": "src",
     "strict": true,
   },
   "exclude": [
