@@ -1,12 +1,23 @@
 {
     "compilerOptions": {
-        "experimentalDecorators": true,
-        "target": "es6",
-        "module": "commonjs",
-        "declaration": true,
-        "outDir": "./lib",
-        "strict": true,
-        "moduleResolution": "node"    
+      "target": "es5",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+      "lib": ["es6", "es2015"],
+      "types": ["node"],
+      "declaration": true,
+      "outDir": "lib",
+      "rootDir": "src",
+      "strict": true,
     },
-    "exclude": ["lib", "node_modules"]
-}
+    "exclude": [
+      "lib",
+      "node_modules",
+      "src/**/*.spec.ts"
+    ],
+    "include": [
+      "src"
+    ]
+  }
