@@ -1,6 +1,6 @@
 {
   "name": "dmock-server",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A typescript based mock server NPM module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
