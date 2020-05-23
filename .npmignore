@@ -3,3 +3,4 @@ src
 tsconfig.json
 index.ts
 package-lock.json
+.github
