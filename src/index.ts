@@ -14,6 +14,9 @@ export class MockServer {
      * @param parameters.hostname The hostname of the server, default is localhost
      * @param parameters.port The port the server listens to, default is 3000
      * @param parameters.routes An array of the routes the server will mock
+     * @param parameters.routes.method The request method, for example: get
+     * @param parameters.routes.path The path of the url, for example: /user
+     * @param parameters.routes.response The response body, for example: { id: 1 }
      */
     constructor(parameters: MockServerParameters) {
         if(parameters.hostname !== undefined) this.hostname = parameters.hostname;
