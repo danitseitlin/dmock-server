@@ -1,26 +1,31 @@
-# dmock server
-A typescript based mock server NPM module
+# dMock Server &middot; [![GitHub license](https://img.shields.io/badge/license-BSD%203%20Clause-blue.svg)](https://github.com/danitseitlin/dmock-server/blob/master/LICENSE) [![npm version](http://img.shields.io/npm/v/dmock-server.svg?style=flat)](https://npmjs.org/package/dmock-server "View this project on npm") 
+## About
+This NodeJS module is a delightful mock server built for automation and ongoing development
+## Quick Start
 
-# How to use
+### Install the module
+Run the following command in your terminal:
+
+`npm i dmock-server`
+
+### Setup your mock
 ```
 import { MockServer } from 'dmock-server';
 
 //Initializing the mock server
 const server = new MockServer({
+    hostname: 'localhost',
+    port: 3000,
     routes: [{
-        path: '/accounts',
         method: 'get',
-        response: {
-            accounts: [{
-                id: 1,
-                username: 'user-1'
-            }]
-        }
+        path: '/users',
+        response: this.users
+    },{
+        method: 'get',
+        path: '/users/:id',
+        response: (req) => this.getUser(req.params.id)
     }]
 });
-
-//Starting the mock server
-server.start();
 ```
-You're all set.
-
+You can setup a function or a simple JS object as a response for a URL.<br>
+Once ready, you will need to run `server.start()` to start the server and `server.stop()` to stop it.
