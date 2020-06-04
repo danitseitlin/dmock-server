@@ -1,4 +1,4 @@
-import { MockServer } from '../src/index';
+import { MockServer } from '../index';
 import * as core from 'express-serve-static-core';
 
 export class Application {
