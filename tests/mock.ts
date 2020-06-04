@@ -57,14 +57,14 @@ export class Application {
 
     /**
      * Updating a user
-     * @param id The if og the user
+     * @param id The if of the user
      * @param details The parameters used to update the user
      * @param res The response of the request
      */
     updateUser(id: number, details: UserInformation, res: core.Response<any>){
         const user = this.users.find((user: User) => user.id == id);
         if(user === undefined) res.status(404).send(this.generateError(id, 'user'))
-        else if(user === undefined !== undefined) {
+        else if(user !== undefined) {
             if(details.email !== undefined) user.email = details.email;
             if(details.name !== undefined) user.name = details.name;
             const index = this.users.indexOf(user);

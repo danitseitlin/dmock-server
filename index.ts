@@ -42,11 +42,15 @@ export class MockServer {
             else if(route.method === 'options') this.handler.options(route.path, function (req, res) { scope.handleRequest(req, res, route) });
             else if(route.method === 'head') this.handler.head(route.path, function (req, res) { scope.handleRequest(req, res, route) });
         }
-        
-        // this.handler.use(bodyParser.raw());
         this.server = createServer(this.handler).listen(this.port, this.hostname);
     }
 
+    /**
+     * Handling the response
+     * @param req The request parameters
+     * @param res The response parameters
+     * @param route The route object
+     */
     private handleRequest(req: core.Request<core.ParamsDictionary, any, any, core.Query>, res: core.Response<any>, route: Route) {
         const response = (typeof route.response === 'function') ? route.response(req, res): route.response;
         res.status((route.statusCode !== undefined) ? route.statusCode: 200).send(response);
@@ -98,4 +102,7 @@ type Route = {
  */
 type RequestMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
 
+/**
+ * A generic flexible function for function response handling
+ */
 type GenericFunction = (request: core.Request<core.ParamsDictionary, any, any, core.Query>, response: core.Response<any>) => void;
