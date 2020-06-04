@@ -47,8 +47,8 @@ export class MockServer {
 
     /**
      * Handling the response
-     * @param req The request parameters
-     * @param res The response parameters
+     * @param req The request object
+     * @param res The response object
      * @param route The route object
      */
     private handleRequest(req: core.Request<core.ParamsDictionary, any, any, core.Query>, res: core.Response<any>, route: Route) {
