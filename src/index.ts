@@ -1,5 +1,7 @@
-import * as express from 'express';
 import { createServer, Server } from 'http';
+import * as express from 'express';
+import * as core from 'express-serve-static-core';
+import * as parser from 'body-parser'
 
 export class MockServer {
     private handler: express.Express = express();
@@ -28,15 +30,27 @@ export class MockServer {
      * Starting the mock server
      */
     start(): void {
+        this.handler.use(parser.urlencoded({ extended: true }));
+        this.handler.use(parser.json());
         for(const route of this.routes) {
-            if(route.method === 'get') this.handler.get(route.path, function (req, res) { res.send(route.response); });
-            if(route.method === 'post') this.handler.post(route.path, function (req, res) { res.send(route.response); });
-            if(route.method === 'put') this.handler.put(route.path, function (req, res) { res.send(route.response); });
-            if(route.method === 'delete') this.handler.delete(route.path, function (req, res) { res.send(route.response); });
+            const scope = this;
+            if(route.method === 'get') this.handler.get(route.path, function (req, res) { scope.handleRequest(req, res, route) });
+            else if(route.method === 'post') this.handler.post(route.path, function (req, res) { scope.handleRequest(req, res, route) });
+            else if(route.method === 'put') this.handler.put(route.path, function (req, res) { scope.handleRequest(req, res, route) });
+            else if(route.method === 'delete') this.handler.delete(route.path, function (req, res) { scope.handleRequest(req, res, route) });
+            else if(route.method === 'patch') this.handler.patch(route.path, function (req, res) { scope.handleRequest(req, res, route) });
+            else if(route.method === 'options') this.handler.options(route.path, function (req, res) { scope.handleRequest(req, res, route) });
+            else if(route.method === 'head') this.handler.head(route.path, function (req, res) { scope.handleRequest(req, res, route) });
         }
+        
+        // this.handler.use(bodyParser.raw());
         this.server = createServer(this.handler).listen(this.port, this.hostname);
     }
 
+    private handleRequest(req: core.Request<core.ParamsDictionary, any, any, core.Query>, res: core.Response<any>, route: Route) {
+        const response = (typeof route.response === 'function') ? route.response(req, res): route.response;
+        res.status((route.statusCode !== undefined) ? route.statusCode: 200).send(response);
+    }
 
     /**
      * Stopping the mock server
@@ -69,15 +83,19 @@ type MockServerParameters = {
  * A type for each route defined and passed over to the mock server.
  * @param method The request method, for example: get
  * @param path The path of the url, for example: /user
+ * @param statusCode The status code of the response
  * @param response The response body, for example: { id: 1 }
  */
 type Route = {
     method: RequestMethod,
     path: string
-    response: {[key: string]: any}
+    statusCode?: number,
+    response: {[key: string]: any} | GenericFunction;
 }
 
 /**
  * Available request methods
  */
-type RequestMethod = 'get' | 'post' | 'put' | 'delete';
+type RequestMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
+
+type GenericFunction = (request: core.Request<core.ParamsDictionary, any, any, core.Query>, response: core.Response<any>) => void;
