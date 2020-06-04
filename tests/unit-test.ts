@@ -1,7 +1,6 @@
 import Axios from 'axios';
 import { expect } from 'chai';
-import { MockServer } from '../src/index';
-
+import { Application } from './mock'
 const httpClient = Axios.create({
     baseURL: 'http://localhost:3000',
     responseType: 'json',
@@ -9,56 +8,44 @@ const httpClient = Axios.create({
         'Content-Type': 'application/json'
     }
 });
-const server = new MockServer({
-    hostname: 'localhost',
-    port: 3000,
-    routes: [{
-        method: 'get',
-        path: '/users',
-        response: {
-            username: 'wonderwoman@yahoo.com'
-        }
-    },{
-        method: 'post',
-        path: '/users',
-        response: {
-            username: 'newwonderwoman@yahoo.com'
-        } 
-    },{
-        method: 'put',
-        path: '/users/:id',
-        response: {
-            username: 'xwonderwoman@yahoo.com'
-        } 
-    },{
-        method: 'delete',
-        path: '/users/2',
-        response: { 'exists': false }
-    }]
-});
+
+const application = new Application();
 
 describe('Mock server testing', async function() {
     this.timeout(10 * 60 * 60);
     before(async () => {
-        server.start();
+        application.start();
     });
 
     after(async () => {
-        server.stop();
+        application.stop();
     });
 
     it('JS Object based mock response', async () => {
         let response = await httpClient.get('/users');
-        expect(response.data.username).to.eql('wonderwoman@yahoo.com');
-        response = await httpClient.post('/users', {
-            name: 'user-name-x'
+        expect(response.data.length).eql(0, 'Users count');
+        await httpClient.post('/users', {
+            name: 'user1',
+            email: 'user1@gmail.com'
         });
-        expect(response.data.username).to.eql('newwonderwoman@yahoo.com');
-        response = await httpClient.put('/users/1', {
-            name: 'user-name-x'
+        await httpClient.post('/users', {
+            name: 'user2',
+            email: 'user2@gmail.com'
         });
-        expect(response.data.username).to.eql('xwonderwoman@yahoo.com');
-        response = await httpClient.delete('/users/2');
-        expect(response.data.exists).to.eql(false);
+        response = await httpClient.get('/users');
+        expect(response.data.length).eql(2, 'Users count');
+        response = await httpClient.get('/users/1');
+        expect(response.data.name).eql('user1', 'User name');
+        expect(response.data.email).eql('user1@gmail.com', 'User email address');
+        await httpClient.put('/users/1', {
+            name: 'user1-updated',
+            email: 'user1-updated@gmail.com'
+        });
+        response = await httpClient.get('/users/1');
+        expect(response.data.name).eql('user1-updated', 'User updated name');
+        expect(response.data.email).eql('user1-updated@gmail.com', 'User updated email address');
+        await httpClient.delete('/users/1');
+        response = await httpClient.get('/users');
+        expect(response.data.length).eql(1, 'Users count');
     });
 });
