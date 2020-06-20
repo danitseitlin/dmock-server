@@ -5,7 +5,7 @@ import * as parser from 'body-parser'
 
 export class MockServer {
     private handler: express.Express = express();
-    private server: Server | any;
+    private server: Server | undefined;
     private hostname: string = 'localhost';
     private port: number = 3000;
     private routes: Route[];
@@ -60,13 +60,14 @@ export class MockServer {
      * Stopping the mock server
      */
     stop(): void {
-        this.server.close();
+        if(this.server !== undefined)
+            this.server.close();
     }
 
     /**
      * Returning the mock server object
      */
-    getServer(): Server {
+    getServer(): Server | undefined {
         return this.server;
     }
 }

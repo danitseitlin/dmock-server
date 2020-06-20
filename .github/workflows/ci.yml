@@ -26,6 +26,6 @@ jobs:
     - name: Setting up the environment
       run: npm install
 
-    # Runs a set of commands using the runners shell
+    # Running the predeploy script to verify the sanity of the module
     - name: Running unit tests
-      run: npm run test
+      run: npm run pre-deploy
