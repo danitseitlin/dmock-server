@@ -51,7 +51,7 @@ export class MockServer {
      * @param res The response object
      * @param route The route object
      */
-    private handleRequest(req: core.Request<core.ParamsDictionary, any, any, any>, res: core.Response<any>, route: Route) {
+    private handleRequest(req: core.Request<core.ParamsDictionary, any, any, core.Query>, res: core.Response<any>, route: Route) {
         const response = (typeof route.response === 'function') ? route.response(req, res): route.response;
         res.status((route.statusCode !== undefined) ? route.statusCode: 200).send(response);
     }
