@@ -5,7 +5,7 @@ import * as parser from 'body-parser'
 
 export class MockServer {
     private handler: express.Express = express();
-    private server: Server | any;
+    private server: Server | undefined;
     private hostname: string = 'localhost';
     private port: number = 3000;
     private routes: Route[];
@@ -51,7 +51,7 @@ export class MockServer {
      * @param res The response object
      * @param route The route object
      */
-    private handleRequest(req: core.Request<core.ParamsDictionary, any, any, core.Query>, res: core.Response<any>, route: Route) {
+    private handleRequest(req: core.Request<core.ParamsDictionary, any, any, any>, res: core.Response<any>, route: Route) {
         const response = (typeof route.response === 'function') ? route.response(req, res): route.response;
         res.status((route.statusCode !== undefined) ? route.statusCode: 200).send(response);
     }
@@ -60,13 +60,14 @@ export class MockServer {
      * Stopping the mock server
      */
     stop(): void {
-        this.server.close();
+        if(this.server !== undefined)
+            this.server.close();
     }
 
     /**
      * Returning the mock server object
      */
-    getServer(): Server {
+    getServer(): Server | undefined {
         return this.server;
     }
 }
