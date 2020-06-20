@@ -27,5 +27,5 @@ jobs:
       run: npm install
 
     # Running the predeploy script to verify the sanity of the module
-    - name: Running unit tests
+    - name: Running unit tests + tsc build
       run: npm run pre-deploy
