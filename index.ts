@@ -21,7 +21,6 @@ export class MockServer {
      * @param parameters.routes.statusCode Optional. The status code of the response
      * @param parameters.routes.headers Optional. The response headers
      * @param parameters.routes.response Required. The response body, for example: { id: 1 }
-
      */
     constructor(parameters: MockServerParameters) {
         if(parameters.hostname !== undefined) this.hostname = parameters.hostname;
@@ -47,7 +46,16 @@ export class MockServer {
         }
         this.server = createServer(this.handler).listen(this.port, this.hostname);
     }
-
+    
+    /**
+     * Setting the headers of the response
+     * @param res The response object
+     * @param headers The headers list
+     */
+    setHeaders(res: core.Response<any>, headers: {[key: string]: any} | undefined): void {
+        for(const header in headers) res.set(header, headers[header]);
+    }
+    
     /**
      * Handling the response
      * @param req The request object
@@ -72,12 +80,6 @@ export class MockServer {
      */
     getServer(): Server | undefined {
         return this.server;
-    }
-
-    setHeaders(res: core.Response<any>, headers: {[key: string]: any} | undefined): void {
-        for(const header in headers) {
-            res.set(header, headers[header]);
-        }
     }
 }
 
