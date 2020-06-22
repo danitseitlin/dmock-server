@@ -13,12 +13,15 @@ export class MockServer {
     /**
      * The constructor of the Mock Server
      * @param parameters The parameters of the mock server
-     * @param parameters.hostname The hostname of the server, default is localhost
-     * @param parameters.port The port the server listens to, default is 3000
-     * @param parameters.routes An array of the routes the server will mock
-     * @param parameters.routes.method The request method, for example: get
-     * @param parameters.routes.path The path of the url, for example: /user
-     * @param parameters.routes.response The response body, for example: { id: 1 }
+     * @param parameters.hostname Optional. The hostname of the server, default is localhost
+     * @param parameters.port Optional. The port the server listens to, default is 3000
+     * @param parameters.routes Required. An array of the routes the server will mock
+     * @param parameters.routes.method Required. The request method, for example: get
+     * @param parameters.routes.path Required. The path of the url, for example: /user
+     * @param parameters.routes.statusCode Optional. The status code of the response
+     * @param parameters.routes.headers Optional. The response headers
+     * @param parameters.routes.response Required. The response body, for example: { id: 1 }
+
      */
     constructor(parameters: MockServerParameters) {
         if(parameters.hostname !== undefined) this.hostname = parameters.hostname;
@@ -34,13 +37,13 @@ export class MockServer {
         this.handler.use(parser.json());
         for(const route of this.routes) {
             const scope = this;
-            if(route.method === 'get') this.handler.get(route.path, function (req, res) { scope.handleRequest(req, res, route) });
-            else if(route.method === 'post') this.handler.post(route.path, function (req, res) { scope.handleRequest(req, res, route) });
-            else if(route.method === 'put') this.handler.put(route.path, function (req, res) { scope.handleRequest(req, res, route) });
-            else if(route.method === 'delete') this.handler.delete(route.path, function (req, res) { scope.handleRequest(req, res, route) });
-            else if(route.method === 'patch') this.handler.patch(route.path, function (req, res) { scope.handleRequest(req, res, route) });
-            else if(route.method === 'options') this.handler.options(route.path, function (req, res) { scope.handleRequest(req, res, route) });
-            else if(route.method === 'head') this.handler.head(route.path, function (req, res) { scope.handleRequest(req, res, route) });
+            if(route.method === 'get') this.handler.get(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
+            else if(route.method === 'post') this.handler.post(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
+            else if(route.method === 'put') this.handler.put(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
+            else if(route.method === 'delete') this.handler.delete(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
+            else if(route.method === 'patch') this.handler.patch(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
+            else if(route.method === 'options') this.handler.options(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
+            else if(route.method === 'head') this.handler.head(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
         }
         this.server = createServer(this.handler).listen(this.port, this.hostname);
     }
@@ -70,13 +73,19 @@ export class MockServer {
     getServer(): Server | undefined {
         return this.server;
     }
+
+    setHeaders(res: core.Response<any>, headers: {[key: string]: any} | undefined): void {
+        for(const header in headers) {
+            res.set(header, headers[header]);
+        }
+    }
 }
 
 /**
  * The parameters of the mock server that are passed over in the constructor
- * @param hostname The hostname of the server, default is localhost
- * @param port The port the server listens to, default is 3000
- * @param routes An array of the routes the server will mock
+ * @param hostname Optional. The hostname of the server, default is localhost
+ * @param port Optional. The port the server listens to, default is 3000
+ * @param routes Required. An array of the routes the server will mock
  */
 type MockServerParameters = {
     hostname?: string,
@@ -86,15 +95,17 @@ type MockServerParameters = {
 
 /**
  * A type for each route defined and passed over to the mock server.
- * @param method The request method, for example: get
- * @param path The path of the url, for example: /user
- * @param statusCode The status code of the response
- * @param response The response body, for example: { id: 1 }
+ * @param method Required. The request method, for example: get
+ * @param path Required. The path of the url, for example: /user
+ * @param statusCode Optional. The status code of the response
+ * @param headers Optional. The response headers
+ * @param response Required. The response body, for example: { id: 1 }
  */
 type Route = {
     method: RequestMethod,
     path: string
     statusCode?: number,
+    headers?: {[key: string]: any},
     response: {[key: string]: any} | GenericFunction;
 }
 

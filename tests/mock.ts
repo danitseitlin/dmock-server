@@ -20,6 +20,7 @@ export class Application {
             },{
                 method: 'get',
                 path: '/users',
+                headers: {'cookie': 'my-key'},
                 response: this.users
             },{
                 method: 'delete',
