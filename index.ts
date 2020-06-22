@@ -52,7 +52,7 @@ export class MockServer {
      * @param res The response object
      * @param headers The headers list
      */
-    setHeaders(res: core.Response<any>, headers: {[key: string]: any} | undefined): void {
+    setHeaders(res: any, headers: {[key: string]: any} | undefined): void {
         for(const header in headers) res.set(header, headers[header]);
     }
     
@@ -62,7 +62,7 @@ export class MockServer {
      * @param res The response object
      * @param route The route object
      */
-    private handleRequest(req: core.Request<core.ParamsDictionary, any, any, core.Query>, res: core.Response<any>, route: Route) {
+    private handleRequest(req: any, res: any, route: Route) {
         const response = (typeof route.response === 'function') ? route.response(req, res): route.response;
         res.status((route.statusCode !== undefined) ? route.statusCode: 200).send(response);
     }
@@ -119,4 +119,4 @@ type RequestMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | '
 /**
  * A generic flexible function for function response handling
  */
-type GenericFunction = (request: core.Request<core.ParamsDictionary, any, any, core.Query>, response: core.Response<any>) => void;
+type GenericFunction = (request: any, response: any) => void;
