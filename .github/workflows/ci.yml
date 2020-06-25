@@ -30,4 +30,4 @@ jobs:
     - name: Running unit tests + tsc build
       run: npm run pre-deploy
     - name: Deploying...
-      run: ls && node .\deploy.js -- --package=dmock-server
+      run: ls && node deploy.js -- --package=dmock-server
