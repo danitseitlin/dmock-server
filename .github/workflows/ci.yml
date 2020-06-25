@@ -30,4 +30,4 @@ jobs:
     - name: Running unit tests + tsc build
       run: npm run pre-deploy
     - name: Deploying...
-      sh: $ver = npm info package dmock-server version && echo $ver
+      run: $ver = npm info package dmock-server version && echo $ver
