@@ -14,9 +14,9 @@ exec(`npm info ${cliArguments.package} version`, (error, stdout, stderr) => {
 	if(version.patch < 9) version.patch++;
 	else if(version.patch === 9 && version.minor < 9) {version.patch = 0; version.minor++}
 	else if(version.patch === 9 && version.minor === 9 ) {version.patch = 0; version.minor = 0; version.major++;}
-	const upgradeCommand = `npm version ${version.major}.${version.minor}.${version.patch}`;
+	const upgradeCommand = `npm version ${version.major}.${version.minor}.${version.patch} --allow-same-version`;
 	console.log('Upgrading to ' + upgradeCommand)
-	exec(upgradeCommand + ' && npm publish --dry-run --allow-same-version', (error, stdout, stderr) => {
+	exec(upgradeCommand + ' && npm publish --dry-run', (error, stdout, stderr) => {
 		if (error) {
 			  console.error(`exec error: ${error}`);
 			  return;
