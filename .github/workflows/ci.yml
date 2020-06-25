@@ -30,4 +30,6 @@ jobs:
     - name: Running unit tests + tsc build
       run: var version = npm run pre-deploy; process.stdout.write(var);
     - name: Deploying...
-      run: npm info package dmock-server version
+      run: echo ::set-env name=NPM_VERSION::$(echo pm info package dmock-server version)
+    - name: Test
+      run: echo ${{ env.NPM_VERSION }}
