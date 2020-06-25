@@ -28,7 +28,7 @@ jobs:
 
     # Running the predeploy script to verify the sanity of the module
     - name: Running unit tests + tsc build
-      run: var version = npm run pre-deploy; process.stdout.write(var);
+      run: npm run pre-deploy
     - name: Deploying...
       run: echo ::set-env name=NPM_VERSION::$(echo pm info package dmock-server version)
     - name: Test
