@@ -1,14 +1,22 @@
 const {exec} = require('child_process');
-let upgradeCommand = '';
-exec('npm info dmock-server version', (error, stdout, stderr) => {
+const {cliArguments} = require('cli-argument-parser')
+exec(`npm info ${cliArguments.package} version`, (error, stdout, stderr) => {
 	if (error) {
 	  	console.error(`exec error: ${error}`);
 	  	return;
 	}
 	const split = stdout.split('.');
-	if(parseInt(split[split.length-1]) < 9) upgradeCommand = 'npm version patch';
-	else upgradeCommand = 'npm version minor';
-	exec(upgradeCommand, (error, stdout, stderr) => {
+	const version = {
+		major: parseInt(split[0]),
+		minor: parseInt(split[split.length-2]),
+		patch: parseInt(split[split.length-1])
+	}
+	if(version.patch < 9) version.patch++;
+	else if(version.patch === 9 && version.minor < 9) {version.patch = 0; version.minor++}
+	else if(version.patch === 9 && version.minor === 9 ) {version.patch = 0; version.minor = 0; version.major++;}
+	const upgradeCommand = `npm version ${version.major}.${version.minor}.${version.patch}`;
+	console.log('Upgrading to ' + upgradeCommand)
+	exec(upgradeCommand + ' && npm publish --dry-run', (error, stdout, stderr) => {
 		if (error) {
 			  console.error(`exec error: ${error}`);
 			  return;
