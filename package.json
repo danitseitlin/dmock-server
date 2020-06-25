@@ -9,7 +9,7 @@
     "test": "mocha -r ts-node/register tests/unit-test.ts",
     "pre-deploy": "npm run test && npm run build",
     "deploy": "npm run pre-deploy && npm version patch && npm publish && npm run clean-lib",
-    "clean-lib": "del .\\lib\\ /F /S /Q"
+    "clean-lib": "rmdir lib /s/q"
   },
   "keywords": [],
   "author": "Dani Tseitlin",
