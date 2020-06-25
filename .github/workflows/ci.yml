@@ -28,6 +28,6 @@ jobs:
 
     # Running the predeploy script to verify the sanity of the module
     - name: Running unit tests + tsc build
-      run: npm run pre-deploy
+      run: var version = npm run pre-deploy; process.stdout.write(var);
     - name: Deploying...
       run: npm info package dmock-server version
