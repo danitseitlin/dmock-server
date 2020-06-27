@@ -5,8 +5,10 @@ const json = require ('./package.json');
     try {
         console.log('starting...')
         const version = await getVersion(json.name)
-        console.log(version)
+        console.log(`new version: ${version}`)
         const response = await exec(`npm version ${version} --allow-same-version && npm publish`);
+        console.log(response.stdout)
+        const response = await exec(`npm publish`);
         console.log(response.stdout)
     } catch (e) {
         // Deal with the fact the chain failed
