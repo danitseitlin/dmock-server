@@ -6,7 +6,7 @@ const json = require ('./package.json');
         console.log('starting...')
         const version = await getVersion(json.name)
         console.log(`new version: ${version}`)
-        let response = await exec(`npm version ${version} --allow-same-version && npm publish`);
+        let response = await exec(`npm version ${version} --allow-same-version`);
         console.log(response)
         response = await exec(`npm publish`);
         console.log(response)
