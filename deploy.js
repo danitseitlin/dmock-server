@@ -7,9 +7,9 @@ const json = require ('./package.json');
         const version = await getVersion(json.name)
         console.log(`new version: ${version}`)
         let response = await exec(`npm version ${version} --allow-same-version && npm publish`);
-        console.log(response.stdout)
+        console.log(response)
         response = await exec(`npm publish`);
-        console.log(response.stdout)
+        console.log(response)
     } catch (e) {
         // Deal with the fact the chain failed
     }
