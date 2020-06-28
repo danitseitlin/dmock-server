@@ -24,9 +24,9 @@ jobs:
     - name: Configuration GIT email
       run: git config --global user.email ${{secrets.BOT_EMAIL}}
     - name: Authenticating with NPM
-      # run: echo "//registry.npmjs.com/dmock-server/:_authToken=$NPM_AUTH" > ~/.npmrc
+      run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       # run: npm login ---registry=https://registry.npmjs.com/:${{secrets.NPM_AUTH}}
-      run: npm config set registry=https://registry.npmjs.com/dmock-server/:_authToken=${{secrets.NPM_AUTH}}
+      # run: npm config set registry=https://registry.npmjs.com/dmock-server/:_authToken=${{secrets.NPM_AUTH}}
     - name: Setting up the environment
       run: npm install
     - name: Running verifications
