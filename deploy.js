@@ -27,7 +27,3 @@ async function getVersion(packageName) {
 	else if(version.patch === 9 && version.minor === 9 ) {version.patch = 0; version.minor = 0; version.major++;}
 	return `${version.major}.${version.minor}.${version.patch}`
 }
-
-async function upgradePackage(version) {
-    
-}

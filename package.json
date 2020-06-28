@@ -10,7 +10,6 @@
     "unit-tests": "npm run test tests/unit-test.ts",
     "pre-deploy": "npm run unit-tests && npm run build",
     "deploy": "npm run clean && npm run pre-deploy && npm version patch && npm publish",
-    "deploy-test": "npx ts-node deploy.ts",
     "clean": "rmdir lib /s/q"
   },
   "keywords": [],
@@ -30,10 +29,7 @@
     "await-exec": "^0.1.2",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
-    "child_process": "^1.0.2",
-    "cli-argument-parser": "0.0.6",
     "mocha": "^7.0.1",
-    "npx": "^10.2.2",
     "ts-node": "^8.5.4",
     "typescript": "^3.8.3"
   },
