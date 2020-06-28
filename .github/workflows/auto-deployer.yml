@@ -25,10 +25,9 @@ jobs:
     - run: git config --global user.email ${{BOT_EMAIL}}
     - name: Setting up the environment
       run: npm install
-
     - name: Running verifications
       run: npm run pre-deploy
-  #Setup deploy bot git information
-  #Setup deploy bot NPM credentials
+    - name: Authenticating with NPM
+    - run: npm login ${{NPM_AUTH}}
     - name: Deploying version
       run: git checkout . && node deploy.js
