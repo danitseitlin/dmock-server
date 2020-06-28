@@ -20,9 +20,9 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: Configuration GIT name
-    - run: git config --global user.name ${{BOT_NAME}}
+      run: git config --global user.name ${{BOT_NAME}}
     - name: Configuration GIT email
-    - run: git config --global user.email ${{BOT_EMAIL}}
+      run: git config --global user.email ${{BOT_EMAIL}}
     - name: Setting up the environment
       run: npm install
     - name: Running verifications
