@@ -6,7 +6,7 @@ name: DeployBot
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    # branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,11 +23,11 @@ jobs:
       run: git config --global user.name ${{secrets.BOT_NAME}}
     - name: Configuration GIT email
       run: git config --global user.email ${{secrets.BOT_EMAIL}}
+    - name: Authenticating with NPM
+      run: npm config set registry=https://registry.npmjs.com/:${{secrets.NPM_AUTH}}
     - name: Setting up the environment
       run: npm install
     - name: Running verifications
       run: npm run pre-deploy
-    - name: Authenticating with NPM
-      run: npm config set registry=//registry.npmjs.com/:${{secrets.NPM_AUTH}}
     - name: Deploying version
       run: git checkout . && node deploy.js
