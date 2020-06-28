@@ -28,6 +28,6 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: Authenticating with NPM
-    - run: npm login ${{NPM_AUTH}}
+      run: npm login ${{NPM_AUTH}}
     - name: Deploying version
       run: git checkout . && node deploy.js
