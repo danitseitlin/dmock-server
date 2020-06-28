@@ -6,3 +6,5 @@ tests
 **/tests/*.js
 index.ts
 tsconfig.json
+deploy.js
+**/deploy.js
