@@ -28,6 +28,6 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: Authenticating with NPM
-      run: npm config set registry=https://registry.npmjs.com/:${{secrets.NPM_AUTH}}
+      run: npm config set registry=//registry.npmjs.com/:${{secrets.NPM_AUTH}}
     - name: Deploying version
       run: git checkout . && node deploy.js
