@@ -3,12 +3,12 @@ const json = require ('./package.json');
 
 (async () => {
     try {
-        console.log('starting...')
+        console.log(`Starting deployment for ${json.name}`)
         const version = await getVersion(json.name)
         console.log(`new version: ${version}`)
-        let response = await exec(`npm version ${version} --allow-same-version`);
-        console.log(response)
-        response = await exec(`npm publish`);
+        let response = await exec(`ls && npm version ${version}`);
+        console.log('sagsag' + response)
+        response = await exec(`npm publish --dry-run`);
         console.log(response)
     } catch (e) {
         // Deal with the fact the chain failed
