@@ -6,10 +6,8 @@ const json = require ('./package.json');
         console.log(`Starting deployment for ${json.name}`)
         const version = await getVersion(json.name)
         console.log(`Upgrading to version: ${version}`)
-        let response = await exec(`npm version ${version}`);
-        console.log(response)
-        response = await exec(`npm publish --dry-run`);
-        console.log(response)
+        await exec(`npm version ${version}`);
+        await exec(`npm publish`);
     } catch (e) {
         console.log(e)
         // Deal with the fact the chain failed
