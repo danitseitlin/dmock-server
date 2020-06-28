@@ -20,14 +20,14 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: Configuration GIT name
-      run: git config --global user.name ${{BOT_NAME}}
+      run: git config --global user.name ${{secrets.BOT_NAME}}
     - name: Configuration GIT email
-      run: git config --global user.email ${{BOT_EMAIL}}
+      run: git config --global user.email ${{secrets.BOT_EMAIL}}
     - name: Setting up the environment
       run: npm install
     - name: Running verifications
       run: npm run pre-deploy
     - name: Authenticating with NPM
-      run: npm login ${{NPM_AUTH}}
+      run: npm login ${{secrets.NPM_AUTH}}
     - name: Deploying version
       run: git checkout . && node deploy.js
