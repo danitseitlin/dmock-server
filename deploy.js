@@ -5,12 +5,13 @@ const json = require ('./package.json');
     try {
         console.log(`Starting deployment for ${json.name}`)
         const version = await getVersion(json.name)
-        console.log(`new version: ${version}`)
-        let response = await exec(`ls && npm version ${version}`);
-        console.log('sagsag' + response)
+        console.log(`Upgrading to version: ${version}`)
+        let response = await exec(`npm version ${version}`);
+        console.log(response)
         response = await exec(`npm publish --dry-run`);
         console.log(response)
     } catch (e) {
+        console.log(e)
         // Deal with the fact the chain failed
     }
 })();
@@ -27,4 +28,8 @@ async function getVersion(packageName) {
 	else if(version.patch === 9 && version.minor < 9) {version.patch = 0; version.minor++}
 	else if(version.patch === 9 && version.minor === 9 ) {version.patch = 0; version.minor = 0; version.major++;}
 	return `${version.major}.${version.minor}.${version.patch}`
+}
+
+async function upgradePackage(version) {
+    
 }
