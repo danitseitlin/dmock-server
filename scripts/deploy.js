@@ -1,5 +1,5 @@
 const exec = require('await-exec')
-const json = require ('./package.json');
+const json = require ('../package.json');
 
 (async () => {
     try {
