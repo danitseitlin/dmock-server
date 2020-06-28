@@ -24,7 +24,8 @@ jobs:
     - name: Configuration GIT email
       run: git config --global user.email ${{secrets.BOT_EMAIL}}
     - name: Authenticating with NPM
-      run: npm config set registry=https://registry.npmjs.com/:${{secrets.NPM_AUTH}}
+      run: npm login ---registry=https://registry.npmjs.com/:${{secrets.NPM_AUTH}}
+      # run: npm config set registry=https://registry.npmjs.com/:${{secrets.NPM_AUTH}}
     - name: Setting up the environment
       run: npm install
     - name: Running verifications
