@@ -30,10 +30,10 @@ jobs:
     - name: Setting up the environment
       run: npm install
       env: 
-        NPM_AUTH_TOKEN: ${NPM_AUTH}
+        NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH}}
     - name: Running verifications
       run: npm run pre-deploy
     - name: Deploying version
       run: git checkout . && node deploy.js
       env: 
-        NPM_AUTH_TOKEN: ${NPM_AUTH}
+        NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH}}
