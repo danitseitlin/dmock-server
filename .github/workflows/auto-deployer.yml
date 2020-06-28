@@ -31,4 +31,3 @@ jobs:
       run: npm run pre-deploy
     - name: Deploying version
       run: git checkout . && node scripts/deploy.js
-
