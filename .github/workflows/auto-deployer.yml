@@ -20,7 +20,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: Configuration GIT name
-      run: git config --global user.name ${{secrets.BOT_NAME}}
+      run: git config --global user.name ${{secrets.BOT_NAME}} && node -v
     - name: Configuration GIT email
       run: git config --global user.email ${{secrets.BOT_EMAIL}}
     - name: Creating .npmrc file
