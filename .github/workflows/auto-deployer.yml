@@ -28,6 +28,6 @@ jobs:
     - name: Setting up the environment
       run: sudo npm install -g
     - name: Running verifications
-      run: npm run pre-deploy && sudo apt-get remove --purge nodejs && 
+      run: npm run pre-deploy
     - name: Deploying version
       run: sudo npm i npm-package-deployer -g && sudo git checkout . && sudo deploy --deploy-package=dmock-server
