@@ -30,4 +30,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: Deploying version
-      run: deploy --deploy-package=dmock-server
+      run: npm link && deploy --deploy-package=dmock-server
