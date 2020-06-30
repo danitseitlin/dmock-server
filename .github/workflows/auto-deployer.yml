@@ -30,6 +30,6 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: Setting up global package deployer
-      run:  mkdir ~/.npm-global && npm config set prefix '~/.npm-global' && ~/.profile && export PATH=~/.npm-global/bin:$PATH && source ~/.profile
+      run: sudo chown -R 65534:116 "/home/runner/.npm
     - name: Deploying version
       run: sudo npm i npm-package-deployer -g && sudo git checkout . && sudo deploy --deploy-package=dmock-server
