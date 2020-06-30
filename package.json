@@ -9,7 +9,7 @@
     "test": "mocha -r ts-node/register",
     "unit-tests": "npm run test tests/unit-test.ts",
     "pre-deploy": "npm run unit-tests && npm run build",
-    "deploy": "deploy --deploy-package=dmock-server",
+    "deploy": "npm-deploy dmock-server",
     "clean": "rmdir lib /s/q"
   },
   "keywords": [],
