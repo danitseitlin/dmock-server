@@ -30,4 +30,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: Deploying version
-      run: sudo npm i npm-package-deployer -i && sudo git checkout . && sudo deploy --deploy-package=dmock-server
+      run: sudo npm i npm-package-deployer -g && sudo git checkout . && sudo deploy --deploy-package=dmock-server
