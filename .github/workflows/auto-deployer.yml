@@ -30,4 +30,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: Deploying version
-      run: git checkout . && node scripts/deploy.js
+      run: deploy --deploy-package=dmock-server
