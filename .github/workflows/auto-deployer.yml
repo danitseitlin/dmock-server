@@ -29,7 +29,5 @@ jobs:
       run: sudo npm install
     - name: Running verifications
       run: npm run pre-deploy
-    - name: Setting up global package deployer
-      run: sudo chown -R $USER "/usr/local/lib/node_modules" && sudo chown -R $USER "/home/runner/.npm/"
     - name: Deploying version
       run: sudo npm i npm-package-deployer -g && sudo git checkout . && sudo deploy --deploy-package=dmock-server
