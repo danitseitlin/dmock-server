@@ -26,8 +26,8 @@ jobs:
     - name: Creating .npmrc file
       run: echo "registry=https://registry.npmjs.org/" >> ~/.npmrc && echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH}}" >> ~/.npmrc
     - name: Setting up the environment
-      run: sudo npm install
+      run: npm install
     - name: Running verifications
       run: npm run pre-deploy
     - name: Deploying version
-      run: sudo npm install -g && sudo git checkout . && sudo deploy --deploy-package=dmock-server
+      run: npm run deploy
