@@ -103,7 +103,7 @@ type MockServerParameters = {
  * @param headers Optional. The response headers
  * @param response Required. The response body, for example: { id: 1 }
  */
-type Route = {
+export type Route = {
     method: RequestMethod,
     path: string
     statusCode?: number,
