@@ -119,4 +119,4 @@ type RequestMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | '
 /**
  * A generic flexible function for function response handling
  */
-type GenericFunction = (request: any, response: any) => void;
+type GenericFunction = (request: express.Request, response: express.Response) => void;
