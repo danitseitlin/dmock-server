@@ -1,13 +1,12 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
-import * as core from 'express-serve-static-core';
 import * as parser from 'body-parser'
 
 export class MockServer {
     private handler: express.Express = express();
     private server: Server | undefined;
-    private hostname: string = 'localhost';
-    private port: number = 3000;
+    private hostname = 'localhost';
+    private port = 3000;
     private routes: Route[];
 
     /**
@@ -25,7 +24,8 @@ export class MockServer {
     constructor(parameters: MockServerParameters) {
         if(parameters.hostname !== undefined) this.hostname = parameters.hostname;
         if(parameters.port !== undefined) this.port = parameters.port;
-        this.routes = parameters.routes;
+        if(typeof parameters.routes === 'string') this.routes = require(parameters.routes)
+        else this.routes = parameters.routes;
     }
 
     /**
@@ -87,12 +87,12 @@ export class MockServer {
  * The parameters of the mock server that are passed over in the constructor
  * @param hostname Optional. The hostname of the server, default is localhost
  * @param port Optional. The port the server listens to, default is 3000
- * @param routes Required. An array of the routes the server will mock
+ * @param routes Required. An array of the routes the server will mock / A string of the json file path.
  */
 type MockServerParameters = {
     hostname?: string,
     port?: number, 
-    routes: Route[]
+    routes: Route[] | string
 }
 
 /**
