@@ -1,4 +1,4 @@
-# dMock Server &middot; [![GitHub license](https://img.shields.io/badge/license-BSD%203%20Clause-blue.svg)](https://github.com/danitseitlin/dmock-server/blob/master/LICENSE) [![npm version](http://img.shields.io/npm/v/dmock-server.svg?style=flat)](https://npmjs.org/package/dmock-server "View this project on npm") 
+# dMock Server &middot; [![GitHub license](https://img.shields.io/badge/license-BSD%203%20Clause-blue.svg)](https://github.com/danitseitlin/dmock-server/blob/master/LICENSE) [![npm version](http://img.shields.io/npm/v/dmock-server.svg?style=flat)](https://npmjs.org/package/dmock-server "View this project on npm") ![CI](https://github.com/danitseitlin/dmock-server/workflows/CI/badge.svg)
 ## About
 This NodeJS module is a delightful mock server built for automation and ongoing development
 ## Quick Start
