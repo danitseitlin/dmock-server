@@ -21,7 +21,7 @@ export class MockServer {
      * @param parameters.routes.headers Optional. The response headers
      * @param parameters.routes.response Required. The response body, for example: { id: 1 }
      */
-    constructor(parameters: MockServerParameters) {
+    constructor(parameters: ServerParameters) {
         if(parameters.hostname !== undefined) this.hostname = parameters.hostname;
         if(parameters.port !== undefined) this.port = parameters.port;
         if(typeof parameters.routes === 'string') this.routes = require(parameters.routes)
@@ -35,52 +35,40 @@ export class MockServer {
         this.handler.use(parser.urlencoded({ extended: true }));
         this.handler.use(parser.json());
         for(const route of this.routes) {
-            const scope = this;
-            if(route.method === 'get') this.handler.get(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
-            else if(route.method === 'post') this.handler.post(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
-            else if(route.method === 'put') this.handler.put(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
-            else if(route.method === 'delete') this.handler.delete(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
-            else if(route.method === 'patch') this.handler.patch(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
-            else if(route.method === 'options') this.handler.options(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
-            else if(route.method === 'head') this.handler.head(route.path, function (req, res) { scope.setHeaders(res, route.headers); scope.handleRequest(req, res, route) });
+            if(route.method === 'get') this.handler.get(route.path, (req, res) => this.handleResponse(req, res, route));
+            else if(route.method === 'post') this.handler.post(route.path, (req, res) => this.handleResponse(req, res, route));
+            else if(route.method === 'put') this.handler.put(route.path, (req, res) => this.handleResponse(req, res, route));
+            else if(route.method === 'delete') this.handler.delete(route.path, (req, res) => this.handleResponse(req, res, route));
+            else if(route.method === 'patch') this.handler.patch(route.path, (req, res) => this.handleResponse(req, res, route));
+            else if(route.method === 'options') this.handler.options(route.path, (req, res) => this.handleResponse(req, res, route));
+            else if(route.method === 'head') this.handler.head(route.path, (req, res) => this.handleResponse(req, res, route));
         }
         this.server = createServer(this.handler).listen(this.port, this.hostname);
     }
     
     /**
-     * Setting the headers of the response
-     * @param res The response object
-     * @param headers The headers list
-     */
-    setHeaders(res: any, headers: {[key: string]: any} | undefined): void {
-        for(const header in headers) res.set(header, headers[header]);
-    }
-    
-    /**
      * Handling the response
-     * @param req The request object
-     * @param res The response object
+     * @param request The request object
+     * @param response The response object
      * @param route The route object
      */
-    private handleRequest(req: any, res: any, route: Route) {
-        const response = (typeof route.response === 'function') ? route.response(req, res): route.response;
-        res.status((route.statusCode !== undefined) ? route.statusCode: 200).send(response);
+    private handleResponse(request: express.Request, response: express.Response, route: Route) {
+        for(const header in route.headers) response.set(header, route.headers[header]);
+        response.status((route.statusCode !== undefined) ? route.statusCode: 200)
+        response.send((typeof route.response === 'function') ? route.response(request, response): route.response)        
     }
 
     /**
      * Stopping the mock server
      */
     stop(): void {
-        if(this.server !== undefined)
-            this.server.close();
+        if(this.server !== undefined) this.server.close();
     }
 
     /**
      * Returning the mock server object
      */
-    getServer(): Server | undefined {
-        return this.server;
-    }
+    getServer(): Server | undefined { return this.server; }
 }
 
 /**
@@ -89,7 +77,7 @@ export class MockServer {
  * @param port Optional. The port the server listens to, default is 3000
  * @param routes Required. An array of the routes the server will mock / A string of the json file path.
  */
-type MockServerParameters = {
+type ServerParameters = {
     hostname?: string,
     port?: number, 
     routes: Route[] | string
@@ -108,7 +96,7 @@ export type Route = {
     path: string
     statusCode?: number,
     headers?: {[key: string]: any},
-    response: {[key: string]: any} | GenericFunction;
+    response: {[key: string]: any} | ResponseFunction;
 }
 
 /**
@@ -119,4 +107,4 @@ type RequestMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | '
 /**
  * A generic flexible function for function response handling
  */
-type GenericFunction = (request: express.Request, response: express.Response) => void;
+type ResponseFunction = (request: express.Request, response: express.Response) => void;
