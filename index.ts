@@ -26,7 +26,7 @@ export class MockServer {
         if(parameters.hostname !== undefined) this.hostname = parameters.hostname;
         if(parameters.port !== undefined) this.port = parameters.port;
         if(typeof parameters.routes === 'string') 
-            this.routes = require(`${path.basename(__filename)}${parameters.routes}`)
+            this.routes = require(`${process.env.INIT_CWD}/${parameters.routes}`);
         else this.routes = parameters.routes;
     }
 
