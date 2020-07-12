@@ -28,7 +28,6 @@ export class MockServer {
         if(typeof parameters.routes === 'string') 
             this.routes = require(`${process.env.INIT_CWD}/${parameters.routes}`);
         else this.routes = parameters.routes;
-        console.log(this.routes)
     }
 
     /**
