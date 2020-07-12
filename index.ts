@@ -1,6 +1,7 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as parser from 'body-parser'
+import * as path from 'path'
 
 export class MockServer {
     private handler: express.Express = express();
@@ -24,7 +25,8 @@ export class MockServer {
     constructor(parameters: ServerParameters) {
         if(parameters.hostname !== undefined) this.hostname = parameters.hostname;
         if(parameters.port !== undefined) this.port = parameters.port;
-        if(typeof parameters.routes === 'string') this.routes = require(parameters.routes)
+        if(typeof parameters.routes === 'string') 
+            this.routes = require(`${path.basename(__filename)}${parameters.routes}`)
         else this.routes = parameters.routes;
     }
 
