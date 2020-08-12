@@ -1,5 +1,4 @@
-import { MockServer } from '../index';
-import * as core from 'express-serve-static-core';
+import { MockServer, Response } from '../index';
 
 export class Application {
     server: MockServer
@@ -38,7 +37,7 @@ export class Application {
      * @param id The id of the user
      * @param res The response of the request
      */
-    getUser(id: number, res: core.Response<any>) {
+    getUser(id: number, res: Response) {
         const user = this.users.find((user: User) => user.id == id);
         if(user === undefined) res.status(404).send(this.generateError(id, 'user'))
         else return user;
@@ -62,7 +61,7 @@ export class Application {
      * @param details The parameters used to update the user
      * @param res The response of the request
      */
-    updateUser(id: number, details: UserInformation, res: core.Response<any>){
+    updateUser(id: number, details: UserInformation, res: Response){
         const user = this.users.find((user: User) => user.id == id);
         if(user === undefined) res.status(404).send(this.generateError(id, 'user'))
         else if(user !== undefined) {
@@ -78,7 +77,7 @@ export class Application {
      * @param id The id of the user
      * @param res The response of the request
      */
-    deleteUser(id: number, res: core.Response<any>){
+    deleteUser(id: number, res: Response){
         const user = this.users.find((user: User) => user.id === id);
         if(user === undefined) res.status(404).send(this.generateError(id, 'user'))
         else this.users.splice(this.users.indexOf(user), 1);
