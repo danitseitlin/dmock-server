@@ -1,7 +1,6 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as parser from 'body-parser'
-import * as path from 'path'
 
 export class MockServer {
     private handler: express.Express = express();
@@ -79,7 +78,7 @@ export class MockServer {
  * @param port Optional. The port the server listens to, default is 3000
  * @param routes Required. An array of the routes the server will mock / A string of the json file path.
  */
-type ServerParameters = {
+export type ServerParameters = {
     hostname?: string,
     port?: number, 
     routes: Route[] | string
