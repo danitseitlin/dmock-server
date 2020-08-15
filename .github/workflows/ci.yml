@@ -25,7 +25,7 @@ jobs:
       run: npm install
 
     # Running the predeploy script to verify the sanity of the module
-    #- name: Running verifications
-    #  run: npm run pre-deploy
-    #- name: Verifying linting
+    - name: Running verifications
+      run: npm run pre-deploy
+    - name: Verifying linting
       run: npm run lint
