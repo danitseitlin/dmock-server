@@ -23,6 +23,6 @@ jobs:
     - name: Running tests
       run: npm run unit-tests
     - name: Verifying linting
-      run: eslint .
+      run: npm run lint
     - name: Deploying version
       run: npm run build && npm run deploy
