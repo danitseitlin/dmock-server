@@ -20,8 +20,6 @@ jobs:
         NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH}}
     - name: Installing NPM packages
       run: npm install
-    - name: Verifying linting
-      run: eslint .
     - name: Running tests
       run: npm run unit-tests
     - name: Deploying version
