@@ -8,6 +8,7 @@
     "build": "tsc",
     "test": "mocha -r ts-node/register",
     "unit-tests": "npm run test tests/unit-test.ts",
+    "lint": "eslint .",
     "pre-deploy": "npm run unit-tests && npm run build",
     "deploy": "npm-deploy dmock-server",
     "clean": "rmdir lib /s/q"

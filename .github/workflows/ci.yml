@@ -28,4 +28,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: Verifying linting
-      run: eslint .
+      run: npm run lint
