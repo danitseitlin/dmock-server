@@ -1,33 +1,28 @@
-# This is a basic workflow to help you get started with Actions
+#This is an automatic deployer flow
 
-name: DeployBot
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+name: Deployment Bot
 on:
   push:
     branches: [ master ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    - name: Configurating Git
-      run: git config --global user.name ${{secrets.BOT_NAME}} && git config --global user.email ${{secrets.BOT_EMAIL}}
+    - name: Configurating GIT
+      run: git config --global user.name $BOT_NAME && git config --global user.email $BOT_EMAIL
+      env:
+        BOT_NAME: ${{secrets.BOT_NAME}}
+        BOT_EMAIL: ${{secrets.BOT_EMAIL}}
     - name: Creating .npmrc file
       run: echo "registry=https://registry.npmjs.org/" >> ~/.npmrc && echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" >> ~/.npmrc
       env:
         NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH}}
-    - name: Setting up the environment
+    - name: Installing NPM packages
       run: npm install
-    - name: Running verifications
-      run: npm run pre-deploy
+    - name: Verifying linting
+      run: eslint .
+    - name: Running tests
+      run: npm run unit-tests
     - name: Deploying version
-      run: npm run deploy
+      run: npm run build && npm-deploy dmock-server
