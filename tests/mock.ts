@@ -114,7 +114,7 @@ export class Application {
  */
 export interface User extends UserInformation {
     id: number
-};
+}
 
 /**
  * The user information object
