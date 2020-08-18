@@ -19,6 +19,8 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.release.target_commitish }}
 
     # Runs a single command using the runners shell
     - name: Setting up the environment
@@ -28,4 +30,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: test
-      run: ${{ github.event.release.target_commitish }}
+      run: echo ${{ github.event.release.target_commitish }}
