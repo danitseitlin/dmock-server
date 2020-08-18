@@ -30,4 +30,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: test
-      run: echo ${{ github.event.release.target_commitish }}
+      run: echo "${{ toJson(${{ github.event) }}"
