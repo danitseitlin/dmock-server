@@ -31,4 +31,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: test
-      run: ${{ github.event.release.tag_name }}
+      run: ${{ github.event }}
