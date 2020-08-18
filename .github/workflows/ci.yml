@@ -31,4 +31,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: test
-      run: echo "${{ github.event }}"
+      run: echo "${{ toJson(github.event) }}"
