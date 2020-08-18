@@ -28,4 +28,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: test
-      run: --tag ${{ github.event.release.target_commitish }}
+      run: ${{ github.event.release.target_commitish }}
