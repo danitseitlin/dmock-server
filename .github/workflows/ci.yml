@@ -29,4 +29,4 @@ jobs:
     - name: Running verifications
       run: npm run pre-deploy
     - name: test
-      run: npm run deploy -- --tag ${{ github.event.after }} --dry-run"
+      run: npm run deploy -- --tag ${{ github.event.after }} --dry-run
