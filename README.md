@@ -1,4 +1,24 @@
-# dMock Server &middot; [![GitHub license](https://img.shields.io/badge/license-BSD%203%20Clause-blue.svg)](https://github.com/danitseitlin/dmock-server/blob/master/LICENSE) [![npm version](http://img.shields.io/npm/v/dmock-server.svg?style=flat)](https://npmjs.org/package/dmock-server "View this project on npm") ![CI](https://github.com/danitseitlin/dmock-server/workflows/CI/badge.svg)
+<p align='center'>
+  <a href='https://www.npmjs.com/package/dmock-server'>
+    <img src='https://img.shields.io/npm/v/dmock-server/latest?style=plastic' target='_blank' />
+  </a>
+  <a href='https://npmjs.org/package/dmock-server' style='width:25px;height:20px;'>
+    <img src='https://img.shields.io/npm/dm/dmock-server.svg?color=blue&style=plastic' target='_blank' />
+  </a>
+  <a href='https://github.com/danitseitlin/dmock-server/issues' style='width:25px;height:20px;'>
+    <img src='https://img.shields.io/github/issues/danitseitlin/dmock-server?style=plastic' target='_blank' />
+  </a>
+  <a href='https://npmjs.org/package/dmock-server' style='width:25px;height:20px;'>
+    <img src='https://img.shields.io/bundlephobia/min/dmock-server/latest?style=plastic' target='_blank' />
+  </a>
+  <a href='https://github.com/danitseitlin/dmock-server/commits/master'>
+    <img src='https://img.shields.io/github/last-commit/danitseitlin/dmock-server?style=plastic' />
+  </a>
+  <a href='https://github.com/danitseitlin/dmock-server/blob/master/LICENSE'>
+    <img src='https://img.shields.io/badge/license-BSD%203%20Clause-blue.svg?style=plastic' target='_blank' />
+  </a>
+</p></p>
+
 ## About
 This NodeJS module is a delightful mock server built for automation and ongoing development
 ## Quick Start
