@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Configurating GIT
     - name: Installing NPM packages
       run: npm install
     - name: Running tests
