@@ -32,7 +32,7 @@
     "chai": "^4.2.0",
     "eslint": "^7.14.0",
     "mocha": "^8.2.1",
-    "npm-package-deployer": "^0.2.9",
+    "npm-package-deployer": "^0.4.5",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.2"
   },
