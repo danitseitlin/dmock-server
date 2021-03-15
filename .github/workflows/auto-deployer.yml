@@ -9,15 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Configurating GIT
-      run: git config --global user.name $BOT_NAME && git config --global user.email $BOT_EMAIL
-      env:
-        BOT_NAME: ${{secrets.BOT_NAME}}
-        BOT_EMAIL: ${{secrets.BOT_EMAIL}}
-    - name: Creating .npmrc file
-      run: echo "registry=https://registry.npmjs.org/" >> ~/.npmrc && echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" >> ~/.npmrc
-      env:
-        NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH}}
     - name: Installing NPM packages
       run: npm install
     - name: Running tests
@@ -25,4 +16,8 @@ jobs:
     - name: Verifying linting
       run: npm run lint
     - name: Deploying version
-      run: npm run build && npm run deploy
+      uses: danitseitlin/npm-package-deployer@master
+      with:
+        pkg_name: dmock-server
+        npm_access_token: ${{secrets.NPM_AUTH_TOKEN}}
+        github_access_token: ${{secrets.G_AUTH_TOKEN}}
