@@ -1,8 +1,8 @@
 .github
 node_modules
 package-lock.json
+index.ts
 tests
 **/tests/*.ts
 **/tests/*.js
-index.ts
 tsconfig.json
