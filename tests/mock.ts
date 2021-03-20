@@ -37,17 +37,17 @@ export class Application {
      * @param id The id of the user
      * @param res The response of the request
      */
-    getUser(id: number, res: Response) {
-        const user = this.users.find((user: User) => user.id == id);
+    getUser(id: number, res: Response): User | undefined {
+        const user = this.users.find((user: User) => user.id === id);
         if(user === undefined) res.status(404).send(this.generateError(id, 'user'))
-        else return user;
+        return user;
     }
 
     /**
      * Creating a user
      * @param details The parameters used to create the user
      */
-    createUser(details: UserInformation){
+    createUser(details: UserInformation): void{
         this.users.push({
             id: this.users.length+1,
             name: details.name,
@@ -61,7 +61,7 @@ export class Application {
      * @param details The parameters used to update the user
      * @param res The response of the request
      */
-    updateUser(id: number, details: UserInformation, res: Response){
+    updateUser(id: number, details: UserInformation, res: Response): void{
         const user = this.users.find((user: User) => user.id == id);
         if(user === undefined) res.status(404).send(this.generateError(id, 'user'))
         else if(user !== undefined) {
@@ -77,7 +77,7 @@ export class Application {
      * @param id The id of the user
      * @param res The response of the request
      */
-    deleteUser(id: number, res: Response){
+    deleteUser(id: number, res: Response): void {
         const user = this.users.find((user: User) => user.id === id);
         if(user === undefined) res.status(404).send(this.generateError(id, 'user'))
         else this.users.splice(this.users.indexOf(user), 1);
@@ -98,12 +98,12 @@ export class Application {
     /**
      * Starting the application
      */
-    start() { this.server.start(); }
+    start(): void { this.server.start(); }
     
     /**
      * Stopping the application
      */
-    stop() { this.server.stop(); }
+    stop(): void { this.server.stop(); }
 }
 
 /**
