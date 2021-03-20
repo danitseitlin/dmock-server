@@ -1,5 +1,3 @@
-#This is an automatic deployer flow
-
 name: Deployment Bot
 on:
   push:
@@ -9,12 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Installing NPM packages
+    - name: Setting up the environment
       run: npm install
-    - name: Running tests
-      run: npm run unit-tests
+    - name: Building
+      run: npm run build
     - name: Verifying linting
       run: npm run lint
+    - name: Running tests
+      run: npm run unit-tests
     - name: Deploying version
       uses: danitseitlin/npm-package-deployer@master
       with:
