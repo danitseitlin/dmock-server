@@ -16,7 +16,7 @@ jobs:
     - name: Running tests
       run: npm run unit-tests
     - name: Deploying version
-      uses: danitseitlin/npm-package-deployer@master
+      uses: danitseitlin/package-deployer@master
       with:
         pkg_name: dmock-server
         npm_access_token: ${{secrets.NPM_AUTH_TOKEN}}
