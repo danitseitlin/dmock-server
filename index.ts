@@ -44,7 +44,9 @@ export class MockServer {
             else if(route.method === 'options') this.handler.options(route.path, (req, res) => this.handleResponse(req, res, route));
             else if(route.method === 'head') this.handler.head(route.path, (req, res) => this.handleResponse(req, res, route));
         }
-        this.server = createServer(this.handler).listen(this.port, this.hostname);
+        this.server = createServer(this.handler).listen(this.port, this.hostname, () => {
+            console.log(`Starting server ${this.hostname}:${this.port}`)
+        });
     }
     
     /**
