@@ -16,7 +16,7 @@
   "author": "Dani Tseitlin",
   "license": "Apache 2.0",
   "dependencies": {
-    "@types/express": "4.17.14",
+    "@types/express": "5.0.0",
     "body-parser": "1.20.3",
     "express": "4.21.0"
   },
